@@ -1,8 +1,9 @@
 <template>
   <div>
+    <h1>Тестирование</h1>
+    <h2>Email</h2>
     <EmailWithHints/>
-
-    ФИО
+    <h2>ФИО</h2>
     <FioWithHints/>
   </div>
 </template>
