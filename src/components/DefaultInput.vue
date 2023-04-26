@@ -29,7 +29,9 @@
 </template>
 
 <script>
-export default {
+import {defineComponent} from "vue";
+
+export default defineComponent({
   name: 'DefaultInput',
   emits: ['input', 'select'],
   props:{
@@ -93,7 +95,7 @@ export default {
     }
   },
 
-}
+})
 </script>
 
 <style lang="scss" scoped>

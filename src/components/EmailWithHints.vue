@@ -10,10 +10,11 @@
 <script>
 import axios from "axios";
 import DefaultInput from "./DefaultInput";
-import debounce from "./helpers/debounce";
+import debounce from "gigdata-inputs/src/helpers/debounce";
 let debouncedGetFields = null;
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
   name: 'EmailWithHints',
   components: {DefaultInput},
   props:{
@@ -49,6 +50,7 @@ export default {
         count: this.count,
       },{
         headers:{
+          "Referer": '',
           'Authorization': 'Token ' + this.token,
         }
       })
@@ -71,5 +73,5 @@ export default {
     }
   },
 
-}
+})
 </script>
