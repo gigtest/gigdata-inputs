@@ -18,7 +18,9 @@ import {defineComponent} from "vue";
 export default defineComponent({
   name: 'EmailWithHints',
   components: {DefaultInput},
+  emits:['input', 'select'],
   props:{
+    // кол-во выводимых подсказок
     count: {
       type: Number,
       default: 5,
@@ -34,13 +36,23 @@ export default defineComponent({
     placeholder:{
       type: String,
       default: 'Введите адрес электронной почты',
+    },
+    // для двухстороннего связывания
+    value:{
+      type: String,
+      default: '',
     }
   },
   data() {
     return {
       suggestions: [],
-      inputModel: '',
+      inputModel: this.value,
     };
+  },
+  watch:{
+    value(){
+      this.inputModel = this.value
+    }
   },
   mounted() {
     debouncedGetFields = debounce(()=>this.getFields(), 500)
@@ -58,22 +70,24 @@ export default defineComponent({
           'Authorization': 'Token ' + this.token,
         }
       })
-          .then((data)=>{
-            this.suggestions = data.data.suggestions
-          })
-          .catch((err)=>{
-            console.log(err)
-          })
+      .then((data)=>{
+        this.suggestions = data.data.suggestions
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
     },
     onInput(value){
       this.suggestions = []
       this.inputModel=value
       debouncedGetFields()
+      this.$emit('input', value)
     },
     onSelect(value){
       this.inputModel = value
       this.suggestions = []
       this.$el.firstElementChild.focus()
+      this.$emit('input', value)
     }
   },
 
