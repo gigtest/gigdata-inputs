@@ -15,7 +15,7 @@ import {defineComponent} from "vue";
 import debounce from "../helpers/debounce";
 
 export default defineComponent({
-  name: 'AdressWithHints',
+  name: 'AddressWithHints',
   components: {DefaultInput},
   emits:['input', 'select'],
   props: {
