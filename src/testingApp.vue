@@ -6,9 +6,14 @@
     <h3>Полное</h3>
     <FioWithHints/>
     <h3>Только имя</h3>
-    <FioWithHints/>
+    <FioWithHints
+      placeholder="Введите имя"
+    />
     <h3>Имя + Фамилия</h3>
-    <FioWithHints/>
+    <FioWithHints
+        placeholder="Введите имя и фамилию"
+    />
+    <h2></h2>
   </div>
 
 </template>
