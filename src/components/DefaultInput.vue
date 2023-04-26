@@ -122,9 +122,6 @@ export default defineComponent({
   background: white;
   input{
     width: 100%;
-    padding: 10px;
-    border: none;
-    font-size: 24px;
     outline: none;
     background: inherit;
   }
@@ -132,9 +129,7 @@ export default defineComponent({
     &__item{
       cursor: pointer;
     }
-    padding: 0 10px;
     width: 100%;
-    z-index: 1;
     background: inherit;
     position: absolute;
     top: 100%;
