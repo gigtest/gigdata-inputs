@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
-import EmailWithHints from './EmailWithHints.vue'
+import testingApp from "./testingApp.vue";
 
-createApp(EmailWithHints).mount('#app')
+createApp(testingApp)
+    .mount('#app')
