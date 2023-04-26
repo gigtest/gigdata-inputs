@@ -67,7 +67,6 @@ export default defineComponent({
   methods:{
     getFields(){
       if (this.inputModel.length < 3) return;
-      if (this.inputModel.indexOf('@') === -1) return;
 
       axios.post(this.apiURL+"/suggest/fio",{
         query: this.inputModel,

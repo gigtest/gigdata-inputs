@@ -19,7 +19,7 @@ export default defineComponent({
   name: 'ProfessionsWithHints',
   components: {DefaultInput},
   emits:['input', 'select'],
-  props:{
+  props: {
     // кол-во выводимых подсказок
     count: {
       type: Number,
@@ -33,22 +33,15 @@ export default defineComponent({
       type: String,
       default: process.env?.VUE_APP_API_URL || '',
     },
-    placeholder:{
+    placeholder: {
       type: String,
-      default: 'Введите ФИО',
+      default: 'Введите профессию',
     },
     // для двухстороннего связывания
-    value:{
+    value: {
       type: String,
       default: '',
     },
-    // Части подсказок
-    // Возможные значения:
-    // NAME, SURNAME, PATRONYMIC
-    parts: {
-      type: Array,
-      default: () => ['NAME', 'SURNAME', 'PATRONYMIC']
-    }
   },
   data() {
     return {
@@ -67,17 +60,12 @@ export default defineComponent({
   methods:{
     getFields(){
       if (this.inputModel.length < 3) return;
-      if (this.inputModel.indexOf('@') === -1) return;
-
-      axios.post(this.apiURL+"/suggest/fio",{
+      axios.post(this.apiURL+"/suggest/professions",{
         query: this.inputModel,
         count: this.count,
       },{
         headers:{
           'Authorization': 'Token ' + this.token,
-        },
-        params:{
-          parts: this.parts
         }
       })
       .then((data)=>{
