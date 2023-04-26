@@ -14,6 +14,7 @@ import axios from "axios";
 import DefaultInput from "./DefaultInput";
 import {defineComponent} from "vue";
 import debounce from "../helpers/debounce";
+import config from "../config";
 
 export default defineComponent({
   name: 'EmailWithHints',
@@ -56,7 +57,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.debouncedGetFields = debounce(this.getFields, 500)
+    this.debouncedGetFields = debounce(this.getFields, config.debounceTime)
   },
   methods:{
     getFields(){

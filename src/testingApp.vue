@@ -28,6 +28,13 @@
       @select="(item)=>addressInfo=item"
     />
     <pre v-if="addressInfo">{{addressInfo}}</pre>
+    <h3>Адреса в Москве</h3>
+    <AddressWithHints
+        @select="(item)=>addressInfo=item"
+        :locations="[{
+          'kladr_id':77
+        }]"
+    />
   </div>
 
 </template>

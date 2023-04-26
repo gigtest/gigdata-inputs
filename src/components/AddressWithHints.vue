@@ -13,6 +13,7 @@ import axios from "axios";
 import DefaultInput from "./DefaultInput";
 import {defineComponent} from "vue";
 import debounce from "../helpers/debounce";
+import config from "../config";
 
 export default defineComponent({
   name: 'AddressWithHints',
@@ -75,7 +76,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.debouncedGetFields = debounce(this.getFields, 500)
+    this.debouncedGetFields = debounce(this.getFields, config.debounceTime)
   },
   methods:{
     getFields(){
@@ -83,6 +84,7 @@ export default defineComponent({
       axios.post(this.apiURL+"/suggest/address",{
         query: this.inputModel,
         count: this.count,
+        locations: this.locations
       },{
         headers:{
           'Authorization': 'Token ' + this.token,

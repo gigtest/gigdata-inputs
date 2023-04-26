@@ -3,6 +3,8 @@
        @keydown.tab="onTab"
        @keydown.down="onKeyDown"
        @keydown.up="onKeyUp"
+       @keydown.esc="onEsc"
+       @click="()=> isOpen = true"
   >
     <input
         :type="type"
@@ -11,7 +13,7 @@
         :value="inputModel"
     >
     <ul class="defaultInput__suggestions"
-        v-if="suggestions.length > 0"
+        v-if="isOpen"
     >
       <li
           class="defaultInput__suggestions__item"
@@ -56,6 +58,16 @@ export default defineComponent({
       default: 'text',
     }
   },
+  data(){
+    return {
+      isOpen: false,
+    }
+  },
+  watch:{
+   suggestions(){
+     this.isOpen = this.suggestions.length > 0
+   }
+  },
   methods:{
     onInput(e){
       this.$emit('input', e.target.value)
@@ -77,6 +89,9 @@ export default defineComponent({
     },
     onTab(e){
       this.onKeyDown(e)
+    },
+    onEsc(){
+      this.isOpen=false
     },
     onSelect(item){
       this.$emit('select', item)
