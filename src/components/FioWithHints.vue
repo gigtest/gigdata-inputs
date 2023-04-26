@@ -93,11 +93,11 @@ export default defineComponent({
       this.debouncedGetFields.call();
       this.$emit('input', value);
     },
-    onSelect(value){
-      this.inputModel = value
+    onSelect(item){
+      this.inputModel = item.value
       this.suggestions = []
       this.$el.firstElementChild.focus()
-      this.$emit('input', value)
+      this.$emit('select', item)
     }
   },
 

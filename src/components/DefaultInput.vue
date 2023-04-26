@@ -9,7 +9,6 @@
         @input="onInput"
         :placeholder="placeholder"
         :value="inputModel"
-
     >
     <ul class="defaultInput__suggestions"
         v-if="suggestions.length > 0"
@@ -19,8 +18,8 @@
           v-for="(item,index) in suggestions"
           :key="index"
           :tabindex="index+2"
-          @keydown.enter="onSelect(item.value)"
-          @click="onSelect(item.value)"
+          @keydown.enter="onSelect(item)"
+          @click="onSelect(item)"
       >
         <span>
         {{item.value.slice(0, item.value.toLowerCase().indexOf(inputModel.toLowerCase()))}}
@@ -71,8 +70,8 @@ export default defineComponent({
     onTab(e){
       this.onKeyDown(e)
     },
-    onSelect(value){
-      this.$emit('select', value)
+    onSelect(item){
+      this.$emit('select', item)
       this.$el.firstElementChild.focus()
     },
     onKeyDown(e){

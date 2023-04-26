@@ -1,7 +1,10 @@
 <template>
   <div class="container">
     <h2>Email</h2>
-    <EmailWithHints/>
+    <EmailWithHints
+    @select="(item)=>emailInfo=item"
+    />
+    <pre v-if="emailInfo">{{emailInfo}}</pre>
     <h2>ФИО</h2>
     <h3>Полное</h3>
     <FioWithHints/>
@@ -25,8 +28,12 @@ import ProfessionWithHints from "./components/ProfessionWithHints.vue";
 import AdressWithHints from "./components/AdressWithHints.vue";
 
 export default {
-  components: {AdressWithHints, ProfessionWithHints, FioWithHints, EmailWithHints}
-
+  components: {AdressWithHints, ProfessionWithHints, FioWithHints, EmailWithHints},
+  data(){
+    return{
+      emailInfo: null,
+    }
+  }
 }
 </script>
 
