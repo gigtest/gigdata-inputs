@@ -24,10 +24,22 @@ export default defineComponent({
       type: Number,
       default: 5,
     },
+    // пример
+    /*"locationBoost": [
+      {
+        "kladr_id": "77"
+      }
+    ]*/
     locationBoost:{
       type: Array,
       default: '',
     },
+    // пример
+    /*"locations": [
+      {
+        "kladr_id": "77"
+      }
+    ]*/
     locations:{
       type: Array,
       default: '',
@@ -42,7 +54,7 @@ export default defineComponent({
     },
     placeholder: {
       type: String,
-      default: 'Введите профессию',
+      default: 'Введите адрес',
     },
     // для двухстороннего связывания
     value: {
@@ -68,7 +80,7 @@ export default defineComponent({
   methods:{
     getFields(){
       if (this.inputModel.length < 3) return;
-      axios.post(this.apiURL+"/suggest/professions",{
+      axios.post(this.apiURL+"/suggest/address",{
         query: this.inputModel,
         count: this.count,
       },{

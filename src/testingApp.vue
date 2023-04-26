@@ -13,7 +13,7 @@
     <h2>Профессии</h2>
     <ProfessionWithHints/>
     <h2>Адреса</h2>
-    Adress
+    <AdressWithHints/>
   </div>
 
 </template>
@@ -22,9 +22,10 @@
 import EmailWithHints from "./components/EmailWithHints.vue";
 import FioWithHints from "./components/FioWithHints.vue";
 import ProfessionWithHints from "./components/ProfessionWithHints.vue";
+import AdressWithHints from "./components/AdressWithHints.vue";
 
 export default {
-  components: {ProfessionWithHints, FioWithHints, EmailWithHints}
+  components: {AdressWithHints, ProfessionWithHints, FioWithHints, EmailWithHints}
 
 }
 </script>
