@@ -2,6 +2,7 @@
   <DefaultInput
       :suggestions="suggestions"
       :inputModel="inputModel"
+      :placeholder="placeholder"
       @input="onInput"
       @select="onSelect"
   />
@@ -30,6 +31,10 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    placeholder:{
+      type: String,
+      default: 'Введите адрес электронной почты',
+    }
   },
   data() {
     return {
@@ -50,7 +55,6 @@ export default defineComponent({
         count: this.count,
       },{
         headers:{
-          "Referer": '',
           'Authorization': 'Token ' + this.token,
         }
       })

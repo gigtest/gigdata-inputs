@@ -7,6 +7,7 @@
     <input
         type="email"
         @input="onInput"
+        :placeholder="placeholder"
         :value="inputModel"
         tabindex="1"
 
@@ -22,7 +23,19 @@
           @keydown.enter="onSelect(item.value)"
           @click="onSelect(item.value)"
       >
-        {{ item.value }}
+        <span>
+        {{item.value.slice(0, item.value.toLowerCase().indexOf(inputModel.toLowerCase()))}}
+        </span>
+        <span class="defaultInput__suggestions__item__highlight">
+          {{
+            item.value.slice(
+            item.value.toLowerCase().indexOf(inputModel.toLowerCase()),
+            item.value.toLowerCase().indexOf(inputModel.toLowerCase())+inputModel.length)
+          }}
+        </span>
+        <span>
+          {{item.value.slice(item.value.toLowerCase().indexOf(inputModel.toLowerCase())+inputModel.length)}}
+        </span>
       </li>
     </ul>
   </div>
@@ -42,6 +55,10 @@ export default defineComponent({
     inputModel: {
       type: String,
       default: ''
+    },
+    placeholder:{
+      type: String,
+      default: '',
     }
   },
   methods:{
@@ -61,9 +78,9 @@ export default defineComponent({
     onKeyDown(e){
       e.preventDefault()
 
-      if (e.target.nextElementSibling?.firstElementChild){
+      if (e.target.tagName === "INPUT"){
         e.target.nextElementSibling.firstElementChild.focus()
-        return
+        return;
       }
 
       if (e.target.nextElementSibling){
@@ -76,21 +93,22 @@ export default defineComponent({
       }
     },
     onKeyUp(e){
-      e.preventDefault()
-      if (e.target === this.$el.firstElementChild){
-        this.$el.lastElementChild.lastElementChild.focus()
-        return
+      // Обработка нажатия если пользователь в инпуте
+      if (e.target.tagName === "INPUT"){
+        e.target.nextElementSibling.lastElementChild.focus()
+        return;
       }
+
+      // обработка нажатия если пользователь в первом LI
       if (e.target === this.$el.lastElementChild.firstElementChild){
         this.$el.firstElementChild.focus()
         return
       }
-      if (e.target.previousElementSibling?.lastElementChild){
-        e.target.previousElementSibling.lastElementChild.focus()
-        return
-      }
-      if (e.target.previousElementSibling){
+
+      // Обработка нажати если пользователь в LI
+      if (e.target.tagName === "LI"){
         e.target.previousElementSibling.focus()
+
       }
     }
   },
@@ -111,6 +129,9 @@ export default defineComponent({
     background: inherit;
   }
   &__suggestions {
+    &__item{
+      cursor: pointer;
+    }
     padding: 0 10px;
     width: 100%;
     z-index: 1;
