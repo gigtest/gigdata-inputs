@@ -5,7 +5,7 @@
        @keydown.up="onKeyUp"
   >
     <input
-        type="email"
+        :type="type"
         @input="onInput"
         :placeholder="placeholder"
         :value="inputModel"
@@ -60,6 +60,10 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    type: {
+      type: String,
+      default: 'text',
+    }
   },
   methods:{
     onInput(e){

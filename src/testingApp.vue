@@ -1,11 +1,16 @@
 <template>
-  <div>
-    <h1>Тестирование</h1>
+  <div class="container">
     <h2>Email</h2>
     <EmailWithHints/>
     <h2>ФИО</h2>
+    <h3>Полное</h3>
+    <FioWithHints/>
+    <h3>Только имя</h3>
+    <FioWithHints/>
+    <h3>Имя + Фамилия</h3>
     <FioWithHints/>
   </div>
+
 </template>
 
 <script>
@@ -18,6 +23,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style>
+html{
+  background: #e5e5e5;
+}
+.container{
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
 </style>

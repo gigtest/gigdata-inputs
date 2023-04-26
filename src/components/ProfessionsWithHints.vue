@@ -3,7 +3,6 @@
       :suggestions="suggestions"
       :inputModel="inputModel"
       :placeholder="placeholder"
-      type="email"
       @input="onInput"
       @select="onSelect"
   />
@@ -17,7 +16,7 @@ import {defineComponent} from "vue";
 import debounce from "../helpers/debounce";
 
 export default defineComponent({
-  name: 'EmailWithHints',
+  name: 'ProfessionsWithHints',
   components: {DefaultInput},
   emits:['input', 'select'],
   props:{
@@ -36,12 +35,19 @@ export default defineComponent({
     },
     placeholder:{
       type: String,
-      default: 'Введите адрес электронной почты',
+      default: 'Введите ФИО',
     },
     // для двухстороннего связывания
     value:{
       type: String,
       default: '',
+    },
+    // Части подсказок
+    // Возможные значения:
+    // NAME, SURNAME, PATRONYMIC
+    parts: {
+      type: Array,
+      default: () => ['NAME', 'SURNAME', 'PATRONYMIC']
     }
   },
   data() {
@@ -63,12 +69,15 @@ export default defineComponent({
       if (this.inputModel.length < 3) return;
       if (this.inputModel.indexOf('@') === -1) return;
 
-      axios.post(this.apiURL+"/suggest/email",{
+      axios.post(this.apiURL+"/suggest/fio",{
         query: this.inputModel,
         count: this.count,
       },{
         headers:{
           'Authorization': 'Token ' + this.token,
+        },
+        params:{
+          parts: this.parts
         }
       })
       .then((data)=>{
