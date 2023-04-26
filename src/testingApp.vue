@@ -7,12 +7,9 @@
     <FioWithHints/>
     <h3>Только имя</h3>
     <FioWithHints
+      :parts="['NAME']"
       placeholder="Введите имя"
     />
-<!--    <h3>Имя + Фамилия</h3>-->
-<!--    <FioWithHints-->
-<!--        placeholder="Введите имя и фамилию"-->
-<!--    />-->
     <h2>Профессии</h2>
     <ProfessionWithHints/>
     <h2>Адреса</h2>

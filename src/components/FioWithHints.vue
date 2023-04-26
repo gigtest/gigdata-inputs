@@ -44,9 +44,10 @@ export default defineComponent({
     // Части подсказок
     // Возможные значения:
     // NAME, SURNAME, PATRONYMIC
+    // Пока не работает если указывать более 1 значения
     parts: {
       type: Array,
-      default: () => ['NAME', 'SURNAME', 'PATRONYMIC']
+      default: () => null
     }
   },
 
@@ -73,13 +74,11 @@ export default defineComponent({
       axios.post(this.apiURL+"/suggest/fio",{
         query: this.inputModel,
         count: this.count,
+        parts: this.parts?.length > 0? this.parts : null
       },{
         headers:{
           'Authorization': 'Token ' + this.token,
         },
-        params:{
-          parts: this.parts
-        }
       })
       .then((data)=>{
         this.suggestions = data.data.suggestions
