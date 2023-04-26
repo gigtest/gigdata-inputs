@@ -93,6 +93,8 @@ export default defineComponent({
       }
     },
     onKeyUp(e){
+      e.preventDefault()
+
       // Обработка нажатия если пользователь в инпуте
       if (e.target.tagName === "INPUT"){
         e.target.nextElementSibling.lastElementChild.focus()
