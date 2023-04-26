@@ -15,14 +15,22 @@ import {defineComponent} from "vue";
 import debounce from "../helpers/debounce";
 
 export default defineComponent({
-  name: 'FioWithHints',
+  name: 'AdressWithHints',
   components: {DefaultInput},
   emits:['input', 'select'],
-  props:{
+  props: {
     // кол-во выводимых подсказок
     count: {
       type: Number,
       default: 5,
+    },
+    locationBoost:{
+      type: Array,
+      default: '',
+    },
+    locations:{
+      type: Array,
+      default: '',
     },
     token: {
       type: String,
@@ -32,29 +40,21 @@ export default defineComponent({
       type: String,
       default: process.env?.VUE_APP_API_URL || '',
     },
-    placeholder:{
+    placeholder: {
       type: String,
-      default: 'Введите ФИО',
+      default: 'Введите профессию',
     },
     // для двухстороннего связывания
-    value:{
+    value: {
       type: String,
       default: '',
     },
-    // Части подсказок
-    // Возможные значения:
-    // NAME, SURNAME, PATRONYMIC
-    parts: {
-      type: Array,
-      default: () => ['NAME', 'SURNAME', 'PATRONYMIC']
-    }
   },
-
   data() {
     return {
       suggestions: [],
       inputModel: this.value,
-      debouncedGetFields: null,
+      debouncedGetFields:null,
     };
   },
   watch:{
@@ -67,18 +67,13 @@ export default defineComponent({
   },
   methods:{
     getFields(){
-      console.log(this.inputModel);
       if (this.inputModel.length < 3) return;
-
-      axios.post(this.apiURL+"/suggest/fio",{
+      axios.post(this.apiURL+"/suggest/professions",{
         query: this.inputModel,
         count: this.count,
       },{
         headers:{
           'Authorization': 'Token ' + this.token,
-        },
-        params:{
-          parts: this.parts
         }
       })
       .then((data)=>{
@@ -89,10 +84,10 @@ export default defineComponent({
       })
     },
     onInput(value){
-      this.suggestions = [];
-      this.inputModel=value;
-      this.debouncedGetFields.call();
-      this.$emit('input', value);
+      this.suggestions = []
+      this.inputModel=value
+      this.debouncedGetFields()
+      this.$emit('input', value)
     },
     onSelect(value){
       this.inputModel = value

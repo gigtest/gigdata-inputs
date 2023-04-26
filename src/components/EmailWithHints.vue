@@ -12,7 +12,6 @@
 <script>
 import axios from "axios";
 import DefaultInput from "./DefaultInput";
-let debouncedGetFields = null;
 import {defineComponent} from "vue";
 import debounce from "../helpers/debounce";
 
@@ -48,6 +47,7 @@ export default defineComponent({
     return {
       suggestions: [],
       inputModel: this.value,
+      debouncedGetFields: null,
     };
   },
   watch:{
@@ -56,7 +56,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    debouncedGetFields = debounce(()=>this.getFields(), 500)
+    this.debouncedGetFields = debounce(this.getFields, 500)
   },
   methods:{
     getFields(){
@@ -81,7 +81,7 @@ export default defineComponent({
     onInput(value){
       this.suggestions = []
       this.inputModel=value
-      debouncedGetFields()
+      this.debouncedGetFields()
       this.$emit('input', value)
     },
     onSelect(value){

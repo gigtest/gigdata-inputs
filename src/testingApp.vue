@@ -9,12 +9,14 @@
     <FioWithHints
       placeholder="Введите имя"
     />
-    <h3>Имя + Фамилия</h3>
-    <FioWithHints
-        placeholder="Введите имя и фамилию"
-    />
+<!--    <h3>Имя + Фамилия</h3>-->
+<!--    <FioWithHints-->
+<!--        placeholder="Введите имя и фамилию"-->
+<!--    />-->
     <h2>Профессии</h2>
-    <ProfessionsWithHints/>
+    <ProfessionWithHints/>
+    <h2>Адреса</h2>
+    Adress
   </div>
 
 </template>
@@ -22,10 +24,10 @@
 <script>
 import EmailWithHints from "./components/EmailWithHints.vue";
 import FioWithHints from "./components/FioWithHints.vue";
-import ProfessionsWithHints from "./components/ProfessionsWithHints.vue";
+import ProfessionWithHints from "./components/ProfessionWithHints.vue";
 
 export default {
-  components: {ProfessionsWithHints, FioWithHints, EmailWithHints}
+  components: {ProfessionWithHints, FioWithHints, EmailWithHints}
 
 }
 </script>

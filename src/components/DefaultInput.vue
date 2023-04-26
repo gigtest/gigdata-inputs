@@ -9,7 +9,6 @@
         @input="onInput"
         :placeholder="placeholder"
         :value="inputModel"
-        tabindex="1"
 
     >
     <ul class="defaultInput__suggestions"
@@ -70,16 +69,14 @@ export default defineComponent({
       this.$emit('input', e.target.value)
     },
     onTab(e){
-      if (e.target === this.$el.lastElementChild.lastElementChild){
-        e.preventDefault()
-        this.$el.firstElementChild.focus()
-      }
+      this.onKeyDown(e)
     },
     onSelect(value){
       this.$emit('select', value)
       this.$el.firstElementChild.focus()
     },
     onKeyDown(e){
+      if (this.suggestions.length < 1) return
       e.preventDefault()
 
       if (e.target.tagName === "INPUT"){
@@ -97,6 +94,7 @@ export default defineComponent({
       }
     },
     onKeyUp(e){
+      if (this.suggestions.length < 1) return
       e.preventDefault()
 
       // Обработка нажатия если пользователь в инпуте
@@ -114,7 +112,6 @@ export default defineComponent({
       // Обработка нажати если пользователь в LI
       if (e.target.tagName === "LI"){
         e.target.previousElementSibling.focus()
-
       }
     }
   },
@@ -132,6 +129,7 @@ export default defineComponent({
     background: inherit;
   }
   &__suggestions {
+    z-index: 1;
     &__item{
       cursor: pointer;
     }
