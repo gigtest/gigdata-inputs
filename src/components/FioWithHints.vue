@@ -69,7 +69,6 @@ export default defineComponent({
   },
   methods:{
     getFields(){
-      console.log(this.inputModel);
       if (this.inputModel.length < 3) return;
 
       axios.post(this.apiURL+"/suggest/fio",{
