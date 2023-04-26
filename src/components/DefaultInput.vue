@@ -22,17 +22,10 @@
           @click="onSelect(item)"
       >
         <span>
-        {{item.value.slice(0, item.value.toLowerCase().indexOf(inputModel.toLowerCase()))}}
+        {{getFirstSamePart(item)}}
         </span>
         <span class="defaultInput__suggestions__item__highlight">
-          {{
-            item.value.slice(
-            item.value.toLowerCase().indexOf(inputModel.toLowerCase()),
-            item.value.toLowerCase().indexOf(inputModel.toLowerCase())+inputModel.length)
-          }}
-        </span>
-        <span>
-          {{item.value.slice(item.value.toLowerCase().indexOf(inputModel.toLowerCase())+inputModel.length)}}
+          {{getHighlightPart(item)}}
         </span>
       </li>
     </ul>
@@ -66,6 +59,21 @@ export default defineComponent({
   methods:{
     onInput(e){
       this.$emit('input', e.target.value)
+    },
+    getFirstSamePart(item){
+      if (item.value.toLowerCase().indexOf(this.inputModel.toLowerCase()) < 0)
+        return ''
+
+      return item.value.slice(
+          0,
+          item.value.toLowerCase().indexOf(this.inputModel.toLowerCase())+this.inputModel.length
+      )
+    },
+    getHighlightPart(item){
+      if (item.value.toLowerCase().indexOf(this.inputModel.toLowerCase()) < 0)
+        return item.value
+
+      return item.value.slice(item.value.toLowerCase().indexOf(this.inputModel.toLowerCase())+this.inputModel.length)
     },
     onTab(e){
       this.onKeyDown(e)
