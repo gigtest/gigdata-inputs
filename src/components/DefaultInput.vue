@@ -112,17 +112,14 @@ export default defineComponent({
     onKeyDown(e){
       if (this.suggestions.length < 1) return
       e.preventDefault()
-
       if (e.target.tagName === "INPUT"){
         e.target.nextElementSibling.firstElementChild.focus()
         return;
       }
-
       if (e.target.nextElementSibling){
         e.target.nextElementSibling.focus()
         return
       }
-
       if (e.target === this.$el.lastElementChild.lastElementChild){
         this.$el.firstElementChild.focus()
       }
@@ -130,26 +127,22 @@ export default defineComponent({
     onKeyUp(e){
       if (this.suggestions.length < 1) return
       e.preventDefault()
-
       // Обработка нажатия если пользователь в инпуте
       if (e.target.tagName === "INPUT"){
         e.target.nextElementSibling.lastElementChild.focus()
         return;
       }
-
       // обработка нажатия если пользователь в первом LI
       if (e.target === this.$el.lastElementChild.firstElementChild){
         this.$el.firstElementChild.focus()
         return
       }
-
       // Обработка нажати если пользователь в LI
       if (e.target.tagName === "LI"){
         e.target.previousElementSibling.focus()
       }
     }
   },
-
 })
 </script>
 
