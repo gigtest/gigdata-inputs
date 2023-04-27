@@ -42,6 +42,15 @@
     >
       {{bankInfo}}
     </pre>
+    <h2>Учебные учреждения</h2>
+    <EducationsWithHints
+      @select="(item)=>educationInfo=item"
+    />
+    <pre
+      v-if="educationInfo"
+    >
+      {{educationInfo}}
+    </pre>
   </div>
 
 </template>
@@ -53,9 +62,12 @@ import ProfessionWithHints from "./components/ProfessionWithHints.vue";
 import AddressWithHints from "./components/AddressWithHints.vue";
 import PartyWithHints from "./components/PartyWithHints.vue";
 import BankWithHints from "./components/BankWithHints.vue";
+import EducationsWithHints from "./components/EducationsWithHints.vue";
 
 export default {
-  components: {BankWithHints, PartyWithHints, AddressWithHints, ProfessionWithHints, FioWithHints, EmailWithHints},
+  components: {
+    EducationsWithHints,
+    BankWithHints, PartyWithHints, AddressWithHints, ProfessionWithHints, FioWithHints, EmailWithHints},
   data(){
     return{
       emailInfo: null,
@@ -64,7 +76,8 @@ export default {
       professionInfo: null,
       addressInfo: null,
       partyInfo:null,
-      bankInfo:null
+      bankInfo:null,
+      educationInfo:null,
     }
   }
 }
