@@ -27,8 +27,8 @@ export default defineNuxtPlugin((nuxtApp) => {
 import InputWithHints from "gigdata-inputs"
 import Vue from "vue"
 
-InputWithHints.props.token.default = "rqe*rjr4MRU9ata0vte"
-InputWithHints.props.apiURL.default = "https://stage.gigdata.ru/api/v2"
+InputWithHints.props.token.default = "TOKEN"
+InputWithHints.props.apiURL.default = "URL"
 Vue.component("InputWithHints", InputWithHints)
 ```
 
