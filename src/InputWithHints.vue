@@ -60,6 +60,11 @@ export default defineComponent({
       validator(value) {
         return types.includes(value)
       }
+    },
+    // дополнительные данные для запроса
+    params:{
+      type: Object,
+      default: ()=>({})
     }
   },
   data() {
@@ -85,6 +90,7 @@ export default defineComponent({
         query: this.inputModel,
         count: this.count,
       }
+      data = Object.assign(data, this.params);
 
       axios.post(this.apiURL+"/suggest/" + this.type,data,{
         headers:{
