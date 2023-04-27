@@ -25,6 +25,7 @@ export default defineComponent({
       type: Number,
       default: 5,
     },
+    // пока не работает
     // пример
     /*"locationBoost": [
       {
@@ -35,6 +36,7 @@ export default defineComponent({
       type: Array,
       default: '',
     },
+    // пока не работает
     // пример
     /*"locations": [
       {
