@@ -33,6 +33,15 @@
     <pre v-if="partyInfo">
       {{partyInfo}}
     </pre>
+    <h2>Банк</h2>
+    <BankWithHints
+        @select="(item)=>bankInfo=item"
+    />
+    <pre
+      v-if="bankInfo"
+    >
+      {{bankInfo}}
+    </pre>
   </div>
 
 </template>
@@ -43,9 +52,10 @@ import FioWithHints from "./components/FioWithHints.vue";
 import ProfessionWithHints from "./components/ProfessionWithHints.vue";
 import AddressWithHints from "./components/AddressWithHints.vue";
 import PartyWithHints from "./components/PartyWithHints.vue";
+import BankWithHints from "./components/BankWithHints.vue";
 
 export default {
-  components: {PartyWithHints, AddressWithHints, ProfessionWithHints, FioWithHints, EmailWithHints},
+  components: {BankWithHints, PartyWithHints, AddressWithHints, ProfessionWithHints, FioWithHints, EmailWithHints},
   data(){
     return{
       emailInfo: null,
@@ -53,7 +63,8 @@ export default {
       fio2Info: null,
       professionInfo: null,
       addressInfo: null,
-      partyInfo:null
+      partyInfo:null,
+      bankInfo:null
     }
   }
 }

@@ -16,7 +16,7 @@ import debounce from "../helpers/debounce";
 import config from "../config";
 
 export default defineComponent({
-  name: 'PartyWithHints',
+  name: 'BankWithHints',
   components: {DefaultInput},
   emits:['input', 'select'],
   props: {
@@ -24,32 +24,6 @@ export default defineComponent({
     count: {
       type: Number,
       default: 5,
-    },
-    // пока не работает
-    // пример
-    /*"locationBoost": [
-      {
-        "kladr_id": "77"
-      }
-    ]*/
-    locationBoost:{
-      type: Array,
-      default: '',
-    },
-    restrict_value:{
-      type: Boolean,
-      default: false,
-    },
-    // пока не работает
-    // пример
-    /*"locations": [
-      {
-        "kladr_id": "77"
-      }
-    ]*/
-    locations:{
-      type: Array,
-      default: '',
     },
     token: {
       type: String,
@@ -92,11 +66,8 @@ export default defineComponent({
         query: this.inputModel,
         count: this.count,
       }
-      if (this.locations.length > 0) data.locations = this.locations
-      if (this.locationBoost.length > 0) data.location_boost = this.locationBoost
-      if (this.restrict_value) data.restrict_value = this.restrict_value
 
-      axios.post(this.apiURL+"/suggest/party",data,{
+      axios.post(this.apiURL+"/suggest/bank",data,{
         headers:{
           'Authorization': 'Token ' + this.token,
         }
