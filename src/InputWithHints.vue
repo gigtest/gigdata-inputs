@@ -119,6 +119,5 @@ export default defineComponent({
       this.$emit('select', item)
     }
   },
-
 })
 </script>
