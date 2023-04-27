@@ -55,7 +55,7 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    // тип - конеченая точка api
+    // тип - конечная точка api
     type:{
       type: String,
       default: 'fio',
@@ -94,17 +94,17 @@ export default defineComponent({
       }
       data = Object.assign(data, this.params);
 
-      axios.post(this.apiURL+"/suggest/" + this.type,data,{
-        headers:{
+      axios.post(this.apiURL + "/suggest/" + this.type, data, {
+        headers: {
           'Authorization': 'Token ' + this.token,
         }
       })
-          .then((data)=>{
-            this.suggestions = data.data.suggestions
-          })
-          .catch((err)=>{
-            console.log(err)
-          })
+      .then((data)=>{
+        this.suggestions = data.data.suggestions
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
     },
     onInput(value){
       this.suggestions = []

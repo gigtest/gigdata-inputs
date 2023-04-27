@@ -24,7 +24,7 @@
           @click="onSelect(item)"
       >
         <span>
-        {{getFirstSamePart(item)}}
+          {{getFirstSamePart(item)}}
         </span>
         <span class="defaultInput__suggestions__item__highlight">
           {{getHighlightPart(item)}}
@@ -104,8 +104,7 @@ export default defineComponent({
       this.$el.firstElementChild.focus()
     },
     clickOutsideHolder(e){
-      if (!e.composedPath().includes(this.$el))
-      {
+      if (!e.composedPath().includes(this.$el)){
         this.isOpen=false
       }
     },
