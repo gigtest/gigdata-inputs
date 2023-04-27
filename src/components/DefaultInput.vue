@@ -63,6 +63,12 @@ export default defineComponent({
       isOpen: false,
     }
   },
+  mounted() {
+    document.addEventListener('click',this.clickOutsideHolder)
+  },
+  beforeUnmount() {
+    document.removeEventListener('click', this.clickOutsideHolder)
+  },
   watch:{
    suggestions(){
      this.isOpen = this.suggestions.length > 0
@@ -96,6 +102,12 @@ export default defineComponent({
     onSelect(item){
       this.$emit('select', item)
       this.$el.firstElementChild.focus()
+    },
+    clickOutsideHolder(e){
+      if (!e.composedPath().includes(this.$el))
+      {
+        this.isOpen=false
+      }
     },
     onKeyDown(e){
       if (this.suggestions.length < 1) return
