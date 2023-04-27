@@ -14,17 +14,7 @@ import {defineComponent} from "vue";
 import DefaultInput from "./components/DefaultInput.vue";
 import debounce from "./helpers/debounce";
 import config from "./config";
-
-export const types = [
-  "fio",
-  "passport",
-  "educations",
-  "address",
-  "profession",
-  "bank",
-  "email",
-  "party",
-]
+import {requestEnum} from "./enums";
 
 export default defineComponent({
   name: 'InputWithHints',
@@ -58,7 +48,7 @@ export default defineComponent({
       type: String,
       default: 'fio',
       validator(value) {
-        return types.includes(value)
+        return Object.keys(requestEnum).includes(value)
       }
     },
     // дополнительные данные для запроса

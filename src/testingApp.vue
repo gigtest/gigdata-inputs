@@ -4,7 +4,7 @@
     <select name="" id="" @change="(e)=>type=e.target.value">
       <option
           :value="option"
-          v-for="option in types"
+          v-for="option in Object.keys(requestEnum)"
       >{{ option }}</option>
     </select>
     <InputWithHints
@@ -85,12 +85,12 @@ import BankWithHints from "./components/BankWithHints.vue";
 import EducationWithHints from "./components/EducationWithHints.vue";
 import PassportWithHints from "./components/PassportWithHints.vue";
 import InputWithHints from "./InputWithHints.vue";
-import {types} from "./InputWithHints.vue";
+import {requestEnum} from "./enums";
 
 export default {
-  computed: {
-    types() {
-      return types
+  computed:{
+    requestEnum(){
+      return requestEnum
     }
   },
   components: {
@@ -110,7 +110,7 @@ export default {
       educationInfo:null,
       passportInfo:null,
       inputInfo:null,
-      type:types[0]
+      type:requestEnum.fio
     }
   }
 }
