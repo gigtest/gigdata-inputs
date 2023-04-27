@@ -28,6 +28,11 @@
       @select="(item)=>addressInfo=item"
     />
     <pre v-if="addressInfo">{{addressInfo}}</pre>
+    <h2>Организация</h2>
+    <PartyWithHints/>
+    <pre v-if="partyInfo">
+      {{partyInfo}}
+    </pre>
   </div>
 
 </template>
@@ -37,9 +42,10 @@ import EmailWithHints from "./components/EmailWithHints.vue";
 import FioWithHints from "./components/FioWithHints.vue";
 import ProfessionWithHints from "./components/ProfessionWithHints.vue";
 import AddressWithHints from "./components/AddressWithHints.vue";
+import PartyWithHints from "./components/PartyWithHints.vue";
 
 export default {
-  components: {AddressWithHints, ProfessionWithHints, FioWithHints, EmailWithHints},
+  components: {PartyWithHints, AddressWithHints, ProfessionWithHints, FioWithHints, EmailWithHints},
   data(){
     return{
       emailInfo: null,
@@ -47,6 +53,7 @@ export default {
       fio2Info: null,
       professionInfo: null,
       addressInfo: null,
+      partyInfo:null
     }
   }
 }

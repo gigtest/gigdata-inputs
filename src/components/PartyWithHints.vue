@@ -16,7 +16,7 @@ import debounce from "../helpers/debounce";
 import config from "../config";
 
 export default defineComponent({
-  name: 'AddressWithHints',
+  name: 'PartyWithHints',
   components: {DefaultInput},
   emits:['input', 'select'],
   props: {
@@ -43,6 +43,10 @@ export default defineComponent({
         "kladr_id": "77"
       }
     ]*/
+    restrict_value:{
+      type: Boolean,
+      default: false,
+    },
     locations:{
       type: Array,
       default: '',
@@ -88,10 +92,11 @@ export default defineComponent({
         query: this.inputModel,
         count: this.count,
       }
-      if (this.locationBoost) data.locationBoost = this.locationBoost
-      if (this.locations) data.locations = this.locations
+      if (this.locations.length > 0) data.locations = this.locations
+      if (this.locationBoost.length > 0) data.location_boost = this.locationBoost
+      if (this.restrict_value) data.restrict_value = this.restrict_value
 
-      axios.post(this.apiURL+"/suggest/address",data,{
+      axios.post(this.apiURL+"/suggest/party",data,{
         headers:{
           'Authorization': 'Token ' + this.token,
         }
