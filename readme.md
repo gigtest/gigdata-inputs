@@ -10,7 +10,9 @@ npm i gigdata-inputs
 
 ### Подключение в плагинах и передача токена
 
+#### Nuxt 3
 ```js
+// plugins/gigdata-inputs.vue
 import InputWithHints from "gigdata-inputs"
 export default defineNuxtPlugin((nuxtApp) => {
     InputWithHints.props.token.default = "TOKEN";
@@ -18,9 +20,26 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('InputWithHints', InputWithHints)
 });
 ```
+#### Nuxt 2
+
+```js
+// plugins/gigdata-inputs.vue
+import InputWithHints from "gigdata-inputs"
+import Vue from "vue"
+
+InputWithHints.props.token.default = "rqe*rjr4MRU9ata0vte"
+InputWithHints.props.apiURL.default = "https://stage.gigdata.ru/api/v2"
+Vue.component("InputWithHints", InputWithHints)
+```
+
+```js
+// nuxt config 
+plugins:[
+    { src: "~/plugins/gigdata-inputs.js", mode: "client" }
+]
+```
 
 ## Пропсы
-
 
 | Название    | Тип    | Описание                                                                      |
 |-------------|--------|-------------------------------------------------------------------------------|
