@@ -28,11 +28,11 @@ export default defineComponent({
     },
     token: {
       type: String,
-      default: process.env?.VUE_APP_API_TOKEN || '',
+      default: process?.env?.VUE_APP_API_TOKEN || '',
     },
     apiURL: {
       type: String,
-      default: process.env?.VUE_APP_API_URL || '',
+      default: process?.env?.VUE_APP_API_URL || '',
     },
     placeholder: {
       type: String,
