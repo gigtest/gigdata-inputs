@@ -10,13 +10,24 @@
 
 <script>
 import axios from "axios";
-import DefaultInput from "./DefaultInput";
 import {defineComponent} from "vue";
-import debounce from "../helpers/debounce";
-import config from "../config";
+import DefaultInput from "./components/DefaultInput.vue";
+import debounce from "./helpers/debounce";
+import config from "./config";
+
+export const types = [
+  "fio",
+  "passport",
+  "educations",
+  "address",
+  "profession",
+  "bank",
+  "email",
+  "party",
+]
 
 export default defineComponent({
-  name: 'PartyWithHints',
+  name: 'InputWithHints',
   components: {DefaultInput},
   emits:['input', 'select'],
   props: {
@@ -24,32 +35,6 @@ export default defineComponent({
     count: {
       type: Number,
       default: 5,
-    },
-    // пока не работает
-    // пример
-    /*"locationBoost": [
-      {
-        "kladr_id": "77"
-      }
-    ]*/
-    locationBoost:{
-      type: Array,
-      default: [],
-    },
-    restrict_value:{
-      type: Boolean,
-      default: false,
-    },
-    // пока не работает
-    // пример
-    /*"locations": [
-      {
-        "kladr_id": "77"
-      }
-    ]*/
-    locations:{
-      type: Array,
-      default: [],
     },
     token: {
       type: String,
@@ -68,6 +53,14 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    // тип - конеченая точка api
+    type:{
+      type: String,
+      default: 'fio',
+      validator(value) {
+        return types.includes(value)
+      }
+    }
   },
   data() {
     return {
@@ -92,21 +85,18 @@ export default defineComponent({
         query: this.inputModel,
         count: this.count,
       }
-      if (this.locations.length > 0) data.locations = this.locations
-      if (this.locationBoost.length > 0) data.location_boost = this.locationBoost
-      if (this.restrict_value) data.restrict_value = this.restrict_value
 
-      axios.post(this.apiURL+"/suggest/party",data,{
+      axios.post(this.apiURL+"/suggest/" + this.type,data,{
         headers:{
           'Authorization': 'Token ' + this.token,
         }
       })
-      .then((data)=>{
-        this.suggestions = data.data.suggestions
-      })
-      .catch((err)=>{
-        console.log(err)
-      })
+          .then((data)=>{
+            this.suggestions = data.data.suggestions
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
     },
     onInput(value){
       this.suggestions = []

@@ -2,7 +2,7 @@
   "name": "gigdata-inputs",
   "version": "1.0.6",
   "description": "",
-  "main": "src/index.js",
+  "main": "src/InputWithHints.vue",
   "private": false,
   "scripts": {
     "dev": "vue-cli-service serve"

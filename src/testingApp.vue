@@ -1,5 +1,16 @@
 <template>
   <div class="container">
+    <h2>Инпут с выбором api</h2>
+    <select name="" id="" @change="(e)=>type=e.target.value">
+      <option
+          :value="option"
+          v-for="option in types"
+      >{{ option }}</option>
+    </select>
+    <InputWithHints
+      @select="(item)=>inputInfo=item"
+      :type="type"
+    />
     <h2>Email</h2>
     <EmailWithHints
     @select="(item)=>emailInfo=item"
@@ -73,9 +84,17 @@ import PartyWithHints from "./components/PartyWithHints.vue";
 import BankWithHints from "./components/BankWithHints.vue";
 import EducationWithHints from "./components/EducationWithHints.vue";
 import PassportWithHints from "./components/PassportWithHints.vue";
+import InputWithHints from "./InputWithHints.vue";
+import {types} from "./InputWithHints.vue";
 
 export default {
+  computed: {
+    types() {
+      return types
+    }
+  },
   components: {
+    InputWithHints,
     PassportWithHints,
     EducationWithHints,
     BankWithHints, PartyWithHints, AddressWithHints, ProfessionWithHints, FioWithHints, EmailWithHints},
@@ -89,7 +108,9 @@ export default {
       partyInfo:null,
       bankInfo:null,
       educationInfo:null,
-      passportInfo:null
+      passportInfo:null,
+      inputInfo:null,
+      type:types[0]
     }
   }
 }

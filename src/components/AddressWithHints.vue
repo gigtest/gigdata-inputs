@@ -34,7 +34,7 @@ export default defineComponent({
     ]*/
     locationBoost:{
       type: Array,
-      default: '',
+      default: [],
     },
     // пока не работает
     // пример
@@ -45,7 +45,7 @@ export default defineComponent({
     ]*/
     locations:{
       type: Array,
-      default: '',
+      default: [],
     },
     token: {
       type: String,
