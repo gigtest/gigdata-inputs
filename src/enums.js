@@ -3,7 +3,7 @@ export const requestEnum = {
     "passport": "passport",
     "educations": "educations",
     "address": "address",
-    "profession": "profession",
+    "professions": "professions",
     "bank": "bank",
     "email": "email",
     "party": "party",
