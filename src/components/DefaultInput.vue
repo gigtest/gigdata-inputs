@@ -13,7 +13,7 @@
         :value="inputModel"
     >
     <ul class="defaultInput__suggestions"
-        v-if="isOpen"
+        v-if="isOpen && suggestions.length > 0"
     >
       <li
           class="defaultInput__suggestions__item"
