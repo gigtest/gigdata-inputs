@@ -48,7 +48,7 @@ export default defineComponent({
     },
     placeholder: {
       type: String,
-      default: 'Введите адрес',
+      default: '',
     },
     // для двухстороннего связывания
     value: {
