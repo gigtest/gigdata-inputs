@@ -43,13 +43,22 @@
       {{bankInfo}}
     </pre>
     <h2>Учебные учреждения</h2>
-    <EducationsWithHints
+    <EducationWithHints
       @select="(item)=>educationInfo=item"
     />
     <pre
       v-if="educationInfo"
     >
       {{educationInfo}}
+    </pre>
+    <h2>Паспорт</h2>
+    <PassportWithHints
+      @select="(item)=>passportInfo=item"
+    />
+    <pre
+    v-if="passportInfo"
+    >
+      {{passportInfo}}
     </pre>
   </div>
 
@@ -62,11 +71,13 @@ import ProfessionWithHints from "./components/ProfessionWithHints.vue";
 import AddressWithHints from "./components/AddressWithHints.vue";
 import PartyWithHints from "./components/PartyWithHints.vue";
 import BankWithHints from "./components/BankWithHints.vue";
-import EducationsWithHints from "./components/EducationsWithHints.vue";
+import EducationWithHints from "./components/EducationWithHints.vue";
+import PassportWithHints from "./components/PassportWithHints.vue";
 
 export default {
   components: {
-    EducationsWithHints,
+    PassportWithHints,
+    EducationWithHints,
     BankWithHints, PartyWithHints, AddressWithHints, ProfessionWithHints, FioWithHints, EmailWithHints},
   data(){
     return{
@@ -78,6 +89,7 @@ export default {
       partyInfo:null,
       bankInfo:null,
       educationInfo:null,
+      passportInfo:null
     }
   }
 }

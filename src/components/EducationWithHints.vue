@@ -16,7 +16,7 @@ import debounce from "../helpers/debounce";
 import config from "../config";
 
 export default defineComponent({
-  name: 'EducationsWithHints',
+  name: 'EducationWithHints',
   components: {DefaultInput},
   emits:['input', 'select'],
   props: {
