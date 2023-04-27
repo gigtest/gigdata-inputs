@@ -59,7 +59,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
 Ниже стили которые необходимо переписывать через `!important;`
 
-```sass
+```scss
 .defaultInput{
   position: relative;
   background: white;
