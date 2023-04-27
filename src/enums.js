@@ -1,7 +1,7 @@
 export const requestEnum = {
     "fio": "fio",
     // Чуть позже поправить,
-    "pasports": "pasports",
+    "passports": "pasports",
     "educations": "educations",
     "address": "address",
     "professions": "professions",
