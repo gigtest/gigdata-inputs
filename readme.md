@@ -1,11 +1,11 @@
-# gigdata-inputs
+# @appsoftware/gigdata-inputs
 
 ## Установка в nuxt 
 
 ### Установка из npm
 
 ```bash
-npm i gigdata-inputs
+npm i @appsoftware/gigdata-inputs
 ```
 
 ### Подключение в плагинах и передача токена
@@ -13,7 +13,7 @@ npm i gigdata-inputs
 #### Nuxt 3
 ```js
 // plugins/gigdata-inputs.vue
-import InputWithHints from "gigdata-inputs"
+import InputWithHints from "@appsoftware/gigdata-inputs"
 export default defineNuxtPlugin((nuxtApp) => {
     InputWithHints.props.token.default = "TOKEN";
     InputWithHints.props.apiURL.default = "URL";
@@ -24,7 +24,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
 ```js
 // plugins/gigdata-inputs.vue
-import InputWithHints from "gigdata-inputs"
+import InputWithHints from "@appsoftware/gigdata-inputs"
 import Vue from "vue"
 
 InputWithHints.props.token.default = "TOKEN"
