@@ -106,10 +106,10 @@ plugins:[
 ### Подключение enums типов
 
 ```js
-import {requestEnum} from "gigdata-inputs/src/enums.js";
+import {requestEnum} from "@appsoftware/gigdata-inputs/src/enums.js";
 ```
 Если используете typescipt, пока нету типов, поэтому нужно добавить комментарий
 ```ts
 // @ts-ignore-next-line
-import {requestEnum} from "gigdata-inputs/src/enums.js";
+import {requestEnum} from "@appsoftware/gigdata-inputs/src/enums.js";
 ```
