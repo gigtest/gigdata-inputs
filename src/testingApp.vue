@@ -10,6 +10,8 @@
     <InputWithHints
       @select="(item)=>inputInfo=item"
       :type="type"
+      @focus="onFocus"
+      @blur="onBlur"
     />
     <pre>{{inputInfo}}</pre>
   </div>
@@ -34,6 +36,17 @@ export default {
       inputInfo:null,
       type:requestEnum.fio
     }
+  },
+  methods:{
+    onInput(value){
+      console.log(value)
+    },
+    onFocus(){
+      console.log('focus')
+    },
+    onBlur(){
+      console.log('blur')
+    },
   }
 }
 </script>

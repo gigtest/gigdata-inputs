@@ -5,6 +5,8 @@
       :placeholder="placeholder"
       @input="onInput"
       @select="onSelect"
+      @focus="onFocus"
+      @blur="onBlur"
   />
 </template>
 
@@ -19,7 +21,7 @@ import {requestEnum} from "./enums";
 export default defineComponent({
   name: 'InputWithHints',
   components: {DefaultInput},
-  emits:['input', 'select'],
+  emits:['input', 'select', 'focus', 'blur'],
   props: {
     // кол-во выводимых подсказок
     count: {
@@ -85,6 +87,12 @@ export default defineComponent({
     this.debouncedGetFields = debounce(this.getFields, config.debounceTime)
   },
   methods:{
+    onFocus(){
+      this.$emit('focus')
+    },
+    onBlur(){
+      this.$emit('blur')
+    },
     getFields(){
       if (this.inputModel.length < 3) return;
 

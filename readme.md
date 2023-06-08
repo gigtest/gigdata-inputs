@@ -58,6 +58,8 @@ plugins:[
 |----------|--------|----------------------------------------------------------------------------------|
 | input    | string | срабатывает при вводе текста в инпуте, возвращает введенный текст                |
 | select   | Object | срабатывает при выборе подсказки, возвращает выбранный элемент, со всеми данными |
+| focus    | Object | стандартный эвент                                                                |
+| blur     | Object | стандартный эвент                                                                |
 
 
 ## Пример использования 
@@ -99,17 +101,4 @@ plugins:[
     list-style: none;
   }
 }
-```
-
-## Дополнительно
-
-### Подключение enums типов
-
-```js
-import {requestEnum} from "@appsoftware/gigdata-inputs/src/enums.js";
-```
-Если используете typescipt, пока нету типов, поэтому нужно добавить комментарий
-```ts
-// @ts-ignore-next-line
-import {requestEnum} from "@appsoftware/gigdata-inputs/src/enums.js";
 ```

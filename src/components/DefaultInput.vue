@@ -11,6 +11,8 @@
         @input="onInput"
         :placeholder="placeholder"
         :value="inputModel"
+        @focus="onFocus"
+        @blur="onBlur"
     >
     <ul class="defaultInput__suggestions"
         v-if="isOpen && suggestions.length > 0"
@@ -39,7 +41,7 @@ import {defineComponent} from "vue";
 
 export default defineComponent({
   name: 'DefaultInput',
-  emits: ['input', 'select'],
+  emits: ['input', 'select','focus', 'blur'],
   props:{
     suggestions: {
       type: Array,
@@ -75,6 +77,12 @@ export default defineComponent({
    }
   },
   methods:{
+    onFocus(){
+      this.$emit('focus')
+    },
+    onBlur(){
+      this.$emit('blur')
+    },
     onInput(e){
       this.$emit('input', e.target.value)
     },
