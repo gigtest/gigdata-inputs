@@ -22,7 +22,7 @@
           v-for="(item,index) in suggestions"
           :key="index"
           :tabindex="index+2"
-          @keydown.enter="onSelect(item)"
+          @keydown.enter="onSelect(item,$event)"
           @click="onSelect(item)"
       >
         <span>
@@ -102,21 +102,26 @@ export default defineComponent({
       return item.value.slice(item.value.toLowerCase().indexOf(this.inputModel.toLowerCase())+this.inputModel.length)
     },
     onTab(e){
+      e.stopPropagation();
       this.onKeyDown(e)
     },
-    onEsc(){
-      this.isOpen=false
+    onEsc(e){
+      e.stopPropagation();
+      this.isOpen=false;
     },
-    onSelect(item){
+    onSelect(item,e){
+      e.stopPropagation();
       this.$emit('select', item)
       this.$el.firstElementChild.focus()
     },
     clickOutsideHolder(e){
+      e.stopPropagation();
       if (!e.composedPath().includes(this.$el)){
         this.isOpen=false
       }
     },
     onKeyDown(e){
+      e.stopPropagation();
       if (this.suggestions.length < 1) return
       e.preventDefault()
       if (e.target.tagName === "INPUT"){
@@ -132,6 +137,7 @@ export default defineComponent({
       }
     },
     onKeyUp(e){
+      e.stopPropagation();
       if (this.suggestions.length < 1) return
       e.preventDefault()
       // Обработка нажатия если пользователь в инпуте
