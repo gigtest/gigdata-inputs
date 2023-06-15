@@ -1,6 +1,6 @@
 {
   "name": "@appsoftware/gigdata-inputs",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "set of inputs for gigdata",
   "main": "src/InputWithHints.vue",
   "private": false,

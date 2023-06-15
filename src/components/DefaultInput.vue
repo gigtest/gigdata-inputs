@@ -23,7 +23,7 @@
           :key="index"
           :tabindex="index+2"
           @keydown.enter="onSelect(item,$event)"
-          @click="onSelect(item)"
+          @click="onSelect(item, $event)"
       >
         <span>
           {{getFirstSamePart(item)}}
@@ -110,7 +110,7 @@ export default defineComponent({
       this.isOpen=false;
     },
     onSelect(item,e){
-      e.stopPropagation();
+      e?.stopPropagation();
       this.$emit('select', item)
       this.$el.firstElementChild.focus()
     },
