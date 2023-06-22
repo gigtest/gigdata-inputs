@@ -23,6 +23,7 @@
           :key="index"
           :tabindex="index+2"
           @keydown.enter="onSelect(item,$event)"
+          @keydown.space="onSelect(item,$event)"
           @click="onSelect(item, $event)"
       >
         <span>
