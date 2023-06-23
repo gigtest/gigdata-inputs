@@ -51,6 +51,7 @@ plugins:[
 | placeholder         | string  | стандартный placeholder                                                       |
 | value               | string  | value для двустороннего связывания                                            |
 | onSelectChangeValue | boolean | Меняется ли значение в инпуте при select                                      |
+| htmlInputType       | string  | Устанавливает тип поля ввода                                                  |
 
 
 

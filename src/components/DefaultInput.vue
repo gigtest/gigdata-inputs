@@ -9,7 +9,7 @@
        @click="()=> isOpen = true"
   >
     <input
-        :type="type"
+        :type="htmlInputType"
         @input="onInput"
         :placeholder="placeholder"
         :value="inputModel"
@@ -62,7 +62,7 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    type: {
+    htmlInputType: {
       type: String,
       default: 'text',
     }
@@ -125,6 +125,7 @@ export default defineComponent({
       }
       if (this.currentSuggestions.length < 1) return
       e?.stopPropagation();
+      e?.preventDefault();
       let item = this.currentSuggestions[this.currentSuggestionIndex]
       this.currentSuggestionIndex = -1
       this.$emit('select', item, e)

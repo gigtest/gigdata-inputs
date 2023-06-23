@@ -11,6 +11,7 @@
       @select="onSelect"
       :type="type"
       :value="value"
+      html-input-type="email"
       @input="(str)=>value=str"
     />
     <pre>{{inputInfo}}</pre>

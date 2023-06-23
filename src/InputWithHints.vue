@@ -3,6 +3,7 @@
       :suggestions="suggestions"
       :inputModel="inputModel"
       :placeholder="placeholder"
+      :htmlInputType="htmlInputType"
       @input="onInput"
       @select="onSelect"
       @focus="onFocus"
@@ -74,7 +75,11 @@ export default defineComponent({
     onSelectChangeValue: {
       type:Boolean,
       default: true,
-    }
+    },
+    htmlInputType: {
+      type: String,
+      default: 'text',
+    },
   },
   data() {
     return {
