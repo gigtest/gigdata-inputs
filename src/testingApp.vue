@@ -9,7 +9,6 @@
     </select>
     <InputWithHints
       @select="onSelect"
-      :onSelectChangeValue="false"
       :type="type"
       :value="value"
       @input="(str)=>value=str"

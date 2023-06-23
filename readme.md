@@ -101,6 +101,9 @@ plugins:[
     position: absolute;
     top: 100%;
     list-style: none;
+    .selected {
+      background: rgba(128, 128, 128, 0.19);
+    }
   }
 }
 ```

@@ -1,9 +1,11 @@
 <template>
   <div class="defaultInput"
-       @keydown.tab="onTab"
        @keydown.down="onKeyDown"
        @keydown.up="onKeyUp"
        @keydown.esc="onEsc"
+       @keydown.tab="onTab"
+       @keydown.enter="onSelect($event)"
+       @keydown.space="onSelect($event)"
        @click="()=> isOpen = true"
   >
     <input
@@ -13,17 +15,21 @@
         :value="inputModel"
         @focus="onFocus"
         @blur="onBlur"
+        :class="{
+            'selected': currentSuggestionIndex === -1
+            }"
     >
     <ul class="defaultInput__suggestions"
-        v-if="isOpen && suggestions.length > 0"
+        v-if="isOpen && currentSuggestions.length > 0"
     >
       <li
-          class="defaultInput__suggestions__item"
-          v-for="(item,index) in suggestions"
+          v-for="(item,index) in currentSuggestions"
+          :class="{
+            'defaultInput__suggestions__item':true,
+            'selected': currentSuggestionIndex === index
+            }"
           :key="index"
           :tabindex="index+2"
-          @keydown.enter="onSelect(item,$event)"
-          @keydown.prevent.space="onSelect(item,$event)"
           @click="onSelect(item, $event)"
       >
         <span>
@@ -64,6 +70,8 @@ export default defineComponent({
   data(){
     return {
       isOpen: false,
+      currentSuggestionIndex: -1,
+      currentSuggestions: [],
     }
   },
   mounted() {
@@ -74,7 +82,8 @@ export default defineComponent({
   },
   watch:{
    suggestions(){
-     this.isOpen = this.suggestions.length > 0
+     this.currentSuggestions = this.suggestions
+     this.isOpen = this.currentSuggestions.length > 0
    }
   },
   methods:{
@@ -110,8 +119,14 @@ export default defineComponent({
       e.stopPropagation();
       this.isOpen=false;
     },
-    onSelect(item,e){
+    onSelect(e){
+      if (this.currentSuggestionIndex < 0) {
+        this.currentSuggestions = []
+      }
+      if (this.currentSuggestions.length < 1) return
       e?.stopPropagation();
+      let item = this.currentSuggestions[this.currentSuggestionIndex]
+      this.currentSuggestionIndex = -1
       this.$emit('select', item, e)
       this.$el.firstElementChild.focus()
     },
@@ -122,38 +137,25 @@ export default defineComponent({
       }
     },
     onKeyDown(e){
+      if (this.currentSuggestions.length < 1) return
       e.stopPropagation();
-      if (this.suggestions.length < 1) return
       e.preventDefault()
-      if (e.target.tagName === "INPUT"){
-        e.target.nextElementSibling.firstElementChild.focus()
-        return;
-      }
-      if (e.target.nextElementSibling){
-        e.target.nextElementSibling.focus()
-        return
-      }
-      if (e.target === this.$el.lastElementChild.lastElementChild){
-        this.$el.firstElementChild.focus()
+      // Обработка нажатия если пользователь в инпуте
+      if (this.currentSuggestionIndex > this.currentSuggestions.length-2){
+        this.currentSuggestionIndex = -1
+      } else{
+        this.currentSuggestionIndex++
       }
     },
     onKeyUp(e){
+      if (this.currentSuggestions.length < 1) return
       e.stopPropagation();
-      if (this.suggestions.length < 1) return
       e.preventDefault()
       // Обработка нажатия если пользователь в инпуте
-      if (e.target.tagName === "INPUT"){
-        e.target.nextElementSibling.lastElementChild.focus()
-        return;
-      }
-      // обработка нажатия если пользователь в первом LI
-      if (e.target === this.$el.lastElementChild.firstElementChild){
-        this.$el.firstElementChild.focus()
-        return
-      }
-      // Обработка нажати если пользователь в LI
-      if (e.target.tagName === "LI"){
-        e.target.previousElementSibling.focus()
+      if (this.currentSuggestionIndex < 0){
+        this.currentSuggestionIndex = this.currentSuggestions.length-1
+      } else {
+        this.currentSuggestionIndex--
       }
     }
   },
@@ -179,6 +181,9 @@ export default defineComponent({
     position: absolute;
     top: 100%;
     list-style: none;
+    .selected {
+      background: rgba(128, 128, 128, 0.19);
+    }
   }
 }
 </style>
