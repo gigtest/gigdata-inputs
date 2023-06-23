@@ -30,7 +30,7 @@
             }"
           :key="index"
           :tabindex="index+2"
-          @click="onSelect(item, $event)"
+          @click="(e)=>onSelectClick(e, index)"
       >
         <span>
           {{getFirstSamePart(item)}}
@@ -126,6 +126,13 @@ export default defineComponent({
       if (this.currentSuggestions.length < 1) return
       e?.stopPropagation();
       let item = this.currentSuggestions[this.currentSuggestionIndex]
+      this.currentSuggestionIndex = -1
+      this.$emit('select', item, e)
+      this.$el.firstElementChild.focus()
+    },
+    onSelectClick(e,index){
+      e.stopPropagation();
+      let item = this.currentSuggestions[index]
       this.currentSuggestionIndex = -1
       this.$emit('select', item, e)
       this.$el.firstElementChild.focus()
