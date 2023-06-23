@@ -69,6 +69,11 @@ export default defineComponent({
     params:{
       type: Object,
       default: ()=>({})
+    },
+    // Будет ли изменять значение событие select
+    onSelectChangeValue: {
+      type:Boolean,
+      default: true,
     }
   },
   data() {
@@ -121,7 +126,8 @@ export default defineComponent({
       this.$emit('input', value)
     },
     onSelect(item){
-      this.inputModel = item.value
+      if (this.onSelectChangeValue)
+        this.inputModel = item.value
       this.suggestions = []
       this.$el.firstElementChild.focus()
       this.$emit('select', item)

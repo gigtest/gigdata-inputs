@@ -112,7 +112,7 @@ export default defineComponent({
     },
     onSelect(item,e){
       e?.stopPropagation();
-      this.$emit('select', item)
+      this.$emit('select', item, e)
       this.$el.firstElementChild.focus()
     },
     clickOutsideHolder(e){

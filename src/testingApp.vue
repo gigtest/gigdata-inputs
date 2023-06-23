@@ -8,10 +8,11 @@
       >{{ option }}</option>
     </select>
     <InputWithHints
-      @select="(item)=>inputInfo=item"
+      @select="onSelect"
+      :onSelectChangeValue="false"
       :type="type"
-      @focus="onFocus"
-      @blur="onBlur"
+      :value="value"
+      @input="(str)=>value=str"
     />
     <pre>{{inputInfo}}</pre>
   </div>
@@ -34,18 +35,16 @@ export default {
   data(){
     return{
       inputInfo:null,
-      type:requestEnum.fio
+      type:requestEnum.fio,
+      value:'',
     }
   },
   methods:{
     onInput(value){
       console.log(value)
     },
-    onFocus(){
-      console.log('focus')
-    },
-    onBlur(){
-      console.log('blur')
+    onSelect(item){
+      this.inputInfo=item
     },
   }
 }
