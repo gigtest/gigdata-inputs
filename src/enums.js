@@ -8,4 +8,5 @@ export const requestEnum = {
     "bank": "bank",
     "email": "email",
     "party": "party",
+    "mkb":"mkb",
 }

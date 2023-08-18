@@ -62,9 +62,6 @@ export default defineComponent({
     type:{
       type: String,
       default: 'fio',
-      validator(value) {
-        return Object.keys(requestEnum).includes(value)
-      }
     },
     // дополнительные данные для запроса
     params:{
