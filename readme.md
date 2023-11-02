@@ -12,7 +12,7 @@ npm i @appsoftware/gigdata-inputs
 
 #### Nuxt 3
 ```js
-// plugins/gigdata-inputs.vue
+// plugins/gigdata-inputs.js
 import InputWithHints from "@appsoftware/gigdata-inputs"
 export default defineNuxtPlugin((nuxtApp) => {
     InputWithHints.props.token.default = "TOKEN";
@@ -23,7 +23,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 #### Nuxt 2
 
 ```js
-// plugins/gigdata-inputs.vue
+// plugins/gigdata-inputs.js
 import InputWithHints from "@appsoftware/gigdata-inputs"
 import Vue from "vue"
 
@@ -52,6 +52,7 @@ plugins:[
 | value               | string  | value для двустороннего связывания                                            |
 | onSelectChangeValue | boolean | Меняется ли значение в инпуте при select                                      |
 | htmlInputType       | string  | Устанавливает тип поля ввода                                                  |
+| disabled            | bool    | Устанавливает disabled поля ввода                                             |
 
 
 

@@ -15,6 +15,7 @@
         :value="inputModel"
         @focus="onFocus"
         @blur="onBlur"
+        :disabled="disabled"
         :class="{
             'selected': currentSuggestionIndex === -1
             }"
@@ -65,6 +66,10 @@ export default defineComponent({
     htmlInputType: {
       type: String,
       default: 'text',
+    },
+        disabled:{
+      type:Boolean,
+      default:false
     }
   },
   data(){

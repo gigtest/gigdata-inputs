@@ -3,6 +3,7 @@
       :suggestions="suggestions"
       :inputModel="inputModel"
       :placeholder="placeholder"
+      :disabled="disabled"
       :htmlInputType="htmlInputType"
       @input="onInput"
       @select="onSelect"
@@ -77,6 +78,10 @@ export default defineComponent({
       type: String,
       default: 'text',
     },
+    disabled:{
+      type:Boolean,
+      default:false
+    }
   },
   data() {
     return {
