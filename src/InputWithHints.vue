@@ -76,7 +76,7 @@ export default defineComponent({
     },
     htmlInputType: {
       type: String,
-      default: 'text',
+      default: 'new-password',
     },
     disabled:{
       type:Boolean,
