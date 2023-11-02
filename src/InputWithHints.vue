@@ -81,6 +81,10 @@ export default defineComponent({
     disabled:{
       type:Boolean,
       default:false
+    },
+    enableHints:{
+      type:Boolean,
+      default:true
     }
   },
   data() {
@@ -106,6 +110,7 @@ export default defineComponent({
       this.$emit('blur')
     },
     getFields(){
+      if (!this.enableHints) return
       if (this.inputModel.length < 3) return;
 
       let data = {
