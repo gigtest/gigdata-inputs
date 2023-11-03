@@ -53,7 +53,7 @@ plugins:[
 | onSelectChangeValue | boolean | Меняется ли значение в инпуте при select                                      |
 | htmlInputType       | string  | Устанавливает тип поля ввода                                                  |
 | disabled            | bool    | Устанавливает disabled поля ввода                                             |
-
+| enableHints         | bool    | Устанавливает работу подсказок, по умолчанию true                             |
 
 
 ## Эвенты
