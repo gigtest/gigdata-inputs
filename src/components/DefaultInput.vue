@@ -46,7 +46,7 @@
 
 <script>
 import {defineComponent} from "vue";
-import {maskit, tokens} from "@/helpers/mask";
+import {maskit, tokens} from "../helpers/mask";
 
 export default defineComponent({
   name: 'DefaultInput',
