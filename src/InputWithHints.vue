@@ -4,6 +4,7 @@
       :inputModel="inputModel"
       :placeholder="placeholder"
       :disabled="disabled"
+      :maska="maska"
       :htmlInputType="htmlInputType"
       @input="onInput"
       @select="onSelect"
@@ -49,6 +50,10 @@ export default defineComponent({
           return '';
         }
       },
+    },
+    maska:{
+      type:[Boolean, String],
+      default:false
     },
     placeholder: {
       type: String,

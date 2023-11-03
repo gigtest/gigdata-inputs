@@ -1,6 +1,6 @@
 {
   "name": "@appsoftware/gigdata-inputs",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "description": "set of inputs for gigdata",
   "main": "src/InputWithHints.vue",
   "private": false,
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/gigtest/gigdata-inputs#readme",
   "dependencies": {
+    "@vue/cli-service": "^5.0.8",
     "axios": "^1.3.6",
     "sass": "^1.62.0",
     "sass-loader": "^13.2.2",

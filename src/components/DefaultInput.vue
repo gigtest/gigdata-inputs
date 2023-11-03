@@ -46,6 +46,7 @@
 
 <script>
 import {defineComponent} from "vue";
+import {maskit, tokens} from "@/helpers/mask";
 
 export default defineComponent({
   name: 'DefaultInput',
@@ -70,7 +71,11 @@ export default defineComponent({
     disabled:{
       type:Boolean,
       default:false
-    }
+    },
+    maska:{
+      type:[Boolean, String],
+      required:true
+    },
   },
   data(){
     return {
@@ -99,6 +104,8 @@ export default defineComponent({
       this.$emit('blur')
     },
     onInput(e){
+      if (this.maska)
+        e.target.value = maskit(e.target.value, this.maska, true, tokens)
       this.$emit('input', e.target.value)
     },
     getFirstSamePart(item){

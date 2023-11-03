@@ -41,18 +41,19 @@ plugins:[
 
 ## Пропсы
 
-| Название            | Тип     | Описание                                                                      |
-|---------------------|---------|-------------------------------------------------------------------------------|
-| count               | number  | количество выдаваемых подсказок                                               |
-| token               | string  | токен для доступа к api                                                       |
-| apiURL              | string  | адрес api                                                                     |
-| params              | object  | дополнительные параметры для запроса, можно найти в основной документации api |
-| type                | string  | тип запроса (email, fio, address...), можно найти в enums.js                  |
-| placeholder         | string  | стандартный placeholder                                                       |
-| value               | string  | value для двустороннего связывания                                            |
-| onSelectChangeValue | boolean | Меняется ли значение в инпуте при select                                      |
-| htmlInputType       | string  | Устанавливает тип поля ввода                                                  |
-| disabled            | bool    | Устанавливает disabled поля ввода                                             |
+| Название            | Тип             | Описание                                                                      |
+|---------------------|-----------------|-------------------------------------------------------------------------------|
+| count               | number          | количество выдаваемых подсказок                                               |
+| token               | string          | токен для доступа к api                                                       |
+| apiURL              | string          | адрес api                                                                     |
+| params              | object          | дополнительные параметры для запроса, можно найти в основной документации api |
+| type                | string          | тип запроса (email, fio, address...), можно найти в enums.js                  |
+| placeholder         | string          | стандартный placeholder                                                       |
+| value               | string          | value для двустороннего связывания                                            |
+| onSelectChangeValue | boolean         | Меняется ли значение в инпуте при select                                      |
+| htmlInputType       | string          | Устанавливает тип поля ввода                                                  |
+| disabled            | bool            | Устанавливает disabled поля ввода                                             |
+| maska               | false or string | Устанавливает маску                                                           |
 
 
 
@@ -75,6 +76,26 @@ plugins:[
     :value="value"
     @input="onInput"
 />
+```
+
+## Символы маски
+
+```javascript
+export const tokens = {
+  // любая цифра
+  "#": { pattern: /\d/ },
+  // любая цифра или буква
+  X: { pattern: /[0-9a-zA-Z]/ },
+  // любая буква
+  S: { pattern: /[a-zA-Z]/ },
+  A: { pattern: /[a-zA-Z]/, transform: (v) => v.toLocaleUpperCase() },
+  a: { pattern: /[a-zA-Z]/, transform: (v) => v.toLocaleLowerCase() },
+  "*": { pattern: /./ },
+  // игнорирует правила для следующего символа
+  "!": { escape: true },
+};
+
+
 ```
 
 ## ВНИМАНИЕ
