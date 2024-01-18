@@ -35,7 +35,7 @@ export default {
   data(){
     return{
       inputInfo:null,
-      type:requestEnum.fio,
+      type:requestEnum.passports,
       value:'',
     }
   },
