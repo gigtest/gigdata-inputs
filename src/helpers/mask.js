@@ -44,16 +44,16 @@ export function maskit(value, mask, masked = true, tokens) {
   return output + restOutput;
 }
 
-export const tokens = {
+export const maskTokens = {
   // любая цифра
-  "#": { pattern: /\d/ },
+  "#": {pattern: /\d/},
   // любая цифра или буква
-  X: { pattern: /[0-9a-zA-Z]/ },
+  X: {pattern: /[0-9a-zA-Z]/},
   // любая буква
-  S: { pattern: /[a-zA-Z]/ },
-  A: { pattern: /[a-zA-Z]/, transform: (v) => v.toLocaleUpperCase() },
-  a: { pattern: /[a-zA-Z]/, transform: (v) => v.toLocaleLowerCase() },
-  "*": { pattern: /./ },
-  "!": { escape: true },
+  S: {pattern: /[a-zA-Z]/},
+  A: {pattern: /[a-zA-Z]/, transform: (v) => v.toLocaleUpperCase()},
+  a: {pattern: /[a-zA-Z]/, transform: (v) => v.toLocaleLowerCase()},
+  "*": {pattern: /./},
+  "!": {escape: true},
 };
 
