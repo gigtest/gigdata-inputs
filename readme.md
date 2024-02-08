@@ -14,7 +14,7 @@ npm i @appsoftware/gigdata-inputs
 
 ```js
 // plugins/gigdata-inputs.js
-import InputWithHints from "@appsoftware/gigdata-inputs"
+import {InputWithHints} from "@appsoftware/gigdata-inputs"
 
 export default defineNuxtPlugin((nuxtApp) => {
   InputWithHints.props.token.default = "TOKEN";
@@ -27,7 +27,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
 ```js
 // plugins/gigdata-inputs.js
-import InputWithHints from "@appsoftware/gigdata-inputs"
+import {InputWithHints} from "@appsoftware/gigdata-inputs"
 import Vue from "vue"
 
 InputWithHints.props.token.default = "TOKEN"
@@ -76,6 +76,25 @@ plugins:[
     :value="value"
     @input="onInput"
 />
+```
+
+## Полный кастом
+
+Чтобы полносью кастомизировать коппонент, следует скопировать его себе на проект из
+каталога `@/appsoftware/gigdata-inputs` и заменить импорты
+
+```vue
+import {maskit, maskTokens} from "../helpers/mask";
+import highlightSubString from "../helpers/highlightSubString";
+import {getGigdataHints} from "../api/gigdataHints";
+import debounce from "../helpers/debounce";
+import config from "../config";
+```
+
+на
+
+```vue
+import {maskit, maskTokens, highlightSubString, getGigdataHints, debounce, config} from "@appsoftware/gigdata-inputs";
 ```
 
 ## ВНИМАНИЕ
