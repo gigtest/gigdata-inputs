@@ -43,9 +43,9 @@
 import {defineComponent} from "vue";
 import {maskit, maskTokens} from "../helpers/mask";
 import highlightSubString from "../helpers/highlightSubString";
-import {getGigdataHints} from "@/api/gigdataHints";
-import debounce from "@/helpers/debounce";
-import config from "@/config";
+import {getGigdataHints} from "../api/gigdataHints";
+import debounce from "../helpers/debounce";
+import config from "../config";
 
 export default defineComponent({
   name: 'DefaultInput',
