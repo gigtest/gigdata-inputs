@@ -1,4 +1,4 @@
-export function maskit(value, mask, masked = true, tokens) {
+function maskit(value, mask, masked = true, tokens) {
   if (!mask) {
     return value;
   }
@@ -44,7 +44,7 @@ export function maskit(value, mask, masked = true, tokens) {
   return output + restOutput;
 }
 
-export const maskTokens = {
+const maskTokens = {
   // любая цифра
   "#": {pattern: /\d/},
   // любая цифра или буква
@@ -57,3 +57,8 @@ export const maskTokens = {
   "!": {escape: true},
 };
 
+
+export {
+  maskit,
+  maskTokens,
+}
