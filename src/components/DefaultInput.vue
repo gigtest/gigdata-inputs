@@ -162,7 +162,7 @@ export default defineComponent({
       if (this.maska)
         e.target.value = maskit(e.target.value, this.maska, true, maskTokens)
       this.debouncedGetFields()
-      // this.$emit('input', e.target.value, e)
+      this.$emit('input', e.target.value, e)
       this.$emit('update:modelValue', e.target.value, e)
     },
     onTab(e) {

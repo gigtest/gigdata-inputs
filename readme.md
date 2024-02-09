@@ -14,7 +14,7 @@ npm i @appsoftware/gigdata-inputs
 
 ```js
 // plugins/gigdata-inputs.js
-import {InputWithHints} from "@appsoftware/gigdata-inputs"
+import InputWithHints from "@appsoftware/gigdata-inputs/src/components/DefaultInput.vue";
 
 export default defineNuxtPlugin((nuxtApp) => {
   InputWithHints.props.token.default = "TOKEN";
@@ -27,7 +27,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
 ```js
 // plugins/gigdata-inputs.js
-import {InputWithHints} from "@appsoftware/gigdata-inputs"
+import InputWithHints from "@appsoftware/gigdata-inputs/src/components/DefaultInput.vue";
 import Vue from "vue"
 
 InputWithHints.props.token.default = "TOKEN"
@@ -44,27 +44,28 @@ plugins:[
 
 ## Пропсы
 
-| Название            | Тип     | Описание                                                                      |
-|---------------------|---------|-------------------------------------------------------------------------------|
-| count               | number  | количество выдаваемых подсказок                                               |
-| token               | string  | токен для доступа к api                                                       |
-| apiURL              | string  | адрес api                                                                     |
-| params              | object  | дополнительные параметры для запроса, можно найти в основной документации api |
-| type                | string  | тип запроса (email, fio, address...), можно найти в enums.js                  |
-| placeholder         | string  | стандартный placeholder                                                       |
-| value               | string  | value для двустороннего связывания                                            |
-| onSelectChangeValue | boolean | Меняется ли значение в инпуте при select                                      |
-| htmlInputType       | string  | Устанавливает тип поля ввода                                                  |
-| disabled            | bool    | Устанавливает disabled поля ввода                                             |
+| Название            | Тип        | Описание                                                                      |
+|---------------------|------------|-------------------------------------------------------------------------------|
+| count               | number     | количество выдаваемых подсказок                                               |
+| token               | string     | токен для доступа к api                                                       |
+| apiURL              | string     | адрес api                                                                     |
+| params              | object     | дополнительные параметры для запроса, можно найти в основной документации api |
+| type                | string     | тип запроса (email, fio, address...), можно найти в enums.js                  |
+| placeholder         | string     | стандартный placeholder                                                       |
+| onSelectChangeValue | boolean    | Меняется ли значение в инпуте при select                                      |
+| htmlInputType       | string     | Устанавливает тип поля ввода                                                  |
+| disabled            | bool       | Устанавливает disabled поля ввода                                             |
+| modelValue          | modelValue | Для быстрого двухстороннего связывания                                        |
 
 ## Эвенты
 
-| Название | тип    | Описание                                                                         |
-|----------|--------|----------------------------------------------------------------------------------|
-| input    | string | срабатывает при вводе текста в инпуте, возвращает введенный текст                |
-| select   | Object | срабатывает при выборе подсказки, возвращает выбранный элемент, со всеми данными |
-| focus    | Object | стандартный эвент                                                                |
-| blur     | Object | стандартный эвент                                                                |
+| Название          | тип           | Описание                                                                         |
+|-------------------|---------------|----------------------------------------------------------------------------------|
+| input             | string, event | срабатывает при вводе текста в инпуте, возвращает введенный текст                |
+| select            | Object, event | срабатывает при выборе подсказки, возвращает выбранный элемент, со всеми данными |
+| focus             | Object        | стандартный эвент                                                                |
+| blur              | Object        | стандартный эвент                                                                |
+| update:modelValue | Object        | стандартный эвент для связки                                                     |
 
 ## Пример использования
 
@@ -94,7 +95,15 @@ import config from "../config";
 на
 
 ```vue
-import {maskit, maskTokens, highlightSubString, getGigdataHints, debounce, config} from "@appsoftware/gigdata-inputs";
+import {
+config,
+debounce,
+getGigdataHints,
+highlightSubString,
+maskit,
+maskTokens,
+requestEnum
+} from "@appsoftware/gigdata-inputs"
 ```
 
 ## ВНИМАНИЕ
