@@ -49,7 +49,13 @@ import config from "../config";
 
 export default defineComponent({
   name: 'DefaultInput',
-  emits: ['input', 'select', 'focus', 'blur'],
+  emits: {
+    input: (value, e) => true,
+    select: (value, e) => true,
+    focus: (e) => true,
+    blur: (e) => true,
+    'update:modelValue': (value, e) => true,
+  },
   props: {
     // для двухстороннего связывания
     modelValue: {
@@ -156,7 +162,8 @@ export default defineComponent({
       if (this.maska)
         e.target.value = maskit(e.target.value, this.maska, true, maskTokens)
       this.debouncedGetFields()
-      this.$emit('input', e.target.value, e)
+      // this.$emit('input', e.target.value, e)
+      this.$emit('update:modelValue', e.target.value, e)
     },
     onTab(e) {
       e.stopPropagation();
@@ -173,15 +180,17 @@ export default defineComponent({
       if (this.currentSuggestions.length < 1) return
       e?.stopPropagation();
       e?.preventDefault();
-      console.log(1);
       let item = this.currentSuggestions[this.currentSuggestionIndex]
       this.currentSuggestionIndex = -1
       this.$emit('select', item, e)
       this.$el.firstElementChild.focus()
       this.isOpen = false
 
-      if (this.onSelectChangeValue)
+      if (this.onSelectChangeValue) {
         this.$emit('input', item.value, e)
+        this.$emit('update:modelValue', item.value, e)
+      }
+
       this.currentSuggestions = []
     },
     onSelectClick(e, index) {
