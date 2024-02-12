@@ -21,7 +21,7 @@
             }"
     >
     <ul class="defaultInput__suggestions"
-        v-if="isOpen && currentSuggestions.length > 0"
+        v-if="isOpen && currentSuggestions?.length > 0"
     >
       <li
           v-for="(item,index) in currentSuggestions"
