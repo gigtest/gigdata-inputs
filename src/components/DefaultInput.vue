@@ -12,7 +12,7 @@
         :type="htmlInputType"
         @input="onInput"
         :placeholder="placeholder"
-        :value="inputModel"
+        :value="modelValue"
         @focus="onFocus"
         @blur="onBlur"
         :disabled="disabled"
@@ -32,13 +32,8 @@
           :key="index"
           :tabindex="index+2"
           @click="(e)=>onSelectClick(e, index)"
+          v-html="highlightSubString(item.value, modelValue)"
       >
-        <span>
-          {{getFirstSamePart(item)}}
-        </span>
-        <span class="defaultInput__suggestions__item__highlight">
-          {{getHighlightPart(item)}}
-        </span>
       </li>
     </ul>
   </div>
@@ -46,21 +41,22 @@
 
 <script>
 import {defineComponent} from "vue";
-import {maskit, tokens} from "../helpers/mask";
+import {maskit, maskTokens} from "../helpers/mask";
+import highlightSubString from "../helpers/highlightSubString";
+import {getGigdataHints} from "../api/gigdataHints";
+import debounce from "../helpers/debounce";
+import config from "../config";
 
 export default defineComponent({
   name: 'DefaultInput',
-  emits: ['input', 'select','focus', 'blur'],
-  props:{
-    suggestions: {
-      type: Array,
-      default: () => []
-    },
-    inputModel: {
+  emits: ['input', 'select', 'focus', 'blur', 'update:modelValue'],
+  props: {
+    // для двухстороннего связывания
+    modelValue: {
       type: String,
-      default: ''
+      required: true,
     },
-    placeholder:{
+    placeholder: {
       type: String,
       default: '',
     },
@@ -68,70 +64,110 @@ export default defineComponent({
       type: String,
       default: 'new-password',
     },
-    disabled:{
-      type:Boolean,
-      default:false
+    disabled: {
+      type: Boolean,
+      default: false
     },
-    maska:{
-      type:[Boolean, String],
-      required:true
+    maska: {
+      type: [Boolean, String],
+      required: false
+    },
+    count: {
+      type: Number,
+      default: 5,
+    },
+    token: {
+      type: String,
+      default: () => {
+        try {
+          return process?.env?.VUE_APP_API_TOKEN || ''
+        } catch {
+          return '';
+        }
+      },
+    },
+    apiURL: {
+      type: String,
+      default: () => {
+        try {
+          return process?.env?.VUE_APP_API_URL || ''
+        } catch {
+          return '';
+        }
+      },
+    },
+    type: {
+      type: String,
+      default: 'fio',
+    },
+    // Будет ли изменять значение событие select
+    onSelectChangeValue: {
+      type: Boolean,
+      default: true,
+    },
+    enableHints: {
+      type: Boolean,
+      default: true,
     },
   },
-  data(){
+  data() {
     return {
-      isOpen: false,
+      isOpen: true,
       currentSuggestionIndex: -1,
       currentSuggestions: [],
+      debouncedGetFields: null,
     }
   },
   mounted() {
-    document.addEventListener('click',this.clickOutsideHolder)
+    document.addEventListener('click', this.clickOutsideHolder)
+    this.debouncedGetFields = debounce(this.getFields, config.debounceTime)
   },
   beforeUnmount() {
     document.removeEventListener('click', this.clickOutsideHolder)
   },
-  watch:{
-   suggestions(){
-     this.currentSuggestions = this.suggestions
-     this.isOpen = this.currentSuggestions.length > 0
-   }
-  },
-  methods:{
-    onFocus(){
+  methods: {
+    highlightSubString,
+    getFields() {
+      if (!this.enableHints) return
+      if (this.modelValue.length < 3) return;
+
+      getGigdataHints({
+        token: this.token,
+        apiURL: this.apiURL,
+        type: this.type,
+        count: this.count,
+        query: this.modelValue,
+      })
+          .then((data) => {
+            this.isOpen = true
+            this.currentSuggestions = data
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+    },
+    onFocus() {
       this.$emit('focus')
     },
-    onBlur(){
+    onBlur() {
       this.$emit('blur')
     },
-    onInput(e){
+    onInput(e) {
       if (this.maska)
-        e.target.value = maskit(e.target.value, this.maska, true, tokens)
-      this.$emit('input', e.target.value)
+        e.target.value = maskit(e.target.value, this.maska, true, maskTokens)
+      this.debouncedGetFields()
+      this.$emit('input', e.target.value, e)
+      this.$emit('update:modelValue', e.target.value, e)
     },
-    getFirstSamePart(item){
-      if (item.value.toLowerCase().indexOf(this.inputModel.toLowerCase()) < 0)
-        return ''
-
-      return item.value.slice(
-          0,
-          item.value.toLowerCase().indexOf(this.inputModel.toLowerCase())+this.inputModel.length
-      )
-    },
-    getHighlightPart(item){
-      if (item.value.toLowerCase().indexOf(this.inputModel.toLowerCase()) < 0)
-        return item.value
-
-      return item.value.slice(item.value.toLowerCase().indexOf(this.inputModel.toLowerCase())+this.inputModel.length)
-    },
-    onTab(e){
+    onTab(e) {
       e.stopPropagation();
       this.onKeyDown(e)
     },
-    onEsc(e){
+    onEsc(e) {
       e.stopPropagation();
-      this.isOpen=false;
+      this.isOpen = false;
     },
-    onSelect(e){
+    onSelect(e) {
       if (this.currentSuggestionIndex < 0) {
         this.currentSuggestions = []
       }
@@ -142,38 +178,43 @@ export default defineComponent({
       this.currentSuggestionIndex = -1
       this.$emit('select', item, e)
       this.$el.firstElementChild.focus()
+      this.isOpen = false
+
+      if (this.onSelectChangeValue) {
+        this.$emit('input', item.value, e)
+        this.$emit('update:modelValue', item.value, e)
+      }
+
+      this.currentSuggestions = []
     },
-    onSelectClick(e,index){
-      e.stopPropagation();
-      let item = this.currentSuggestions[index]
-      this.currentSuggestionIndex = -1
-      this.$emit('select', item, e)
-      this.$el.firstElementChild.focus()
+    onSelectClick(e, index) {
+      this.currentSuggestionIndex = index
+      this.onSelect(e)
     },
-    clickOutsideHolder(e){
+    clickOutsideHolder(e) {
       e.stopPropagation();
-      if (!e.composedPath().includes(this.$el)){
-        this.isOpen=false
+      if (!e.composedPath().includes(this.$el)) {
+        this.isOpen = false
       }
     },
-    onKeyDown(e){
+    onKeyDown(e) {
       if (this.currentSuggestions.length < 1) return
       e.stopPropagation();
       e.preventDefault()
       // Обработка нажатия если пользователь в инпуте
-      if (this.currentSuggestionIndex > this.currentSuggestions.length-2){
+      if (this.currentSuggestionIndex > this.currentSuggestions.length - 2) {
         this.currentSuggestionIndex = -1
-      } else{
+      } else {
         this.currentSuggestionIndex++
       }
     },
-    onKeyUp(e){
+    onKeyUp(e) {
       if (this.currentSuggestions.length < 1) return
       e.stopPropagation();
       e.preventDefault()
       // Обработка нажатия если пользователь в инпуте
-      if (this.currentSuggestionIndex < 0){
-        this.currentSuggestionIndex = this.currentSuggestions.length-1
+      if (this.currentSuggestionIndex < 0) {
+        this.currentSuggestionIndex = this.currentSuggestions.length - 1
       } else {
         this.currentSuggestionIndex--
       }
@@ -183,24 +224,29 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.defaultInput{
+.defaultInput {
   position: relative;
   background: white;
-  input{
+
+  input {
     width: 100%;
     outline: none;
     background: inherit;
   }
+
   &__suggestions {
     z-index: 1;
-    &__item{
+
+    &__item {
       cursor: pointer;
     }
+
     width: 100%;
     background: inherit;
     position: absolute;
     top: 100%;
     list-style: none;
+
     .selected {
       background: rgba(128, 128, 128, 0.19);
     }

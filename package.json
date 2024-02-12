@@ -1,8 +1,8 @@
 {
   "name": "@appsoftware/gigdata-inputs",
-  "version": "1.6.3",
+  "version": "2.0.0",
   "description": "set of inputs for gigdata",
-  "main": "src/InputWithHints.vue",
+  "main": "src",
   "private": false,
   "scripts": {
     "dev": "vue-cli-service serve"
