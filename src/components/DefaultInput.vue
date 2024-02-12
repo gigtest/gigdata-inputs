@@ -49,13 +49,7 @@ import config from "../config";
 
 export default defineComponent({
   name: 'DefaultInput',
-  emits: {
-    input: (value, e) => true,
-    select: (value, e) => true,
-    focus: (e) => true,
-    blur: (e) => true,
-    'update:modelValue': (value, e) => true,
-  },
+  emits: ['input', 'select', 'focus', 'blur', 'update:modelValue'],
   props: {
     // для двухстороннего связывания
     modelValue: {
